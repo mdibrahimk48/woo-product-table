@@ -267,6 +267,7 @@ class Shortcode extends Shortcode_Base{
 
     }
     public function shortcode($atts){
+        echo "test"; fdsf
 
         $this->atts = $atts;
 
