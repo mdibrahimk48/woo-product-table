@@ -17,6 +17,14 @@ use WOO_PRODUCT_TABLE\Inc\Table\Row;
 use WOO_PRODUCT_TABLE\Inc\Features\Basics;
 use WOO_PRODUCT_TABLE\Inc\Handle\Mini_Filter;
 
+if( !function_exists('dd') ){
+	function dd($val){
+		echo "<pre>";
+			var_dump($val);
+		echo "</pre>";
+	 }
+}
+
 class Shortcode extends Shortcode_Base{
 
     public $_root = __CLASS__;
@@ -267,7 +275,6 @@ class Shortcode extends Shortcode_Base{
 
     }
     public function shortcode($atts){
-        echo "test"; fdsf
 
         $this->atts = $atts;
 
@@ -282,9 +289,19 @@ class Shortcode extends Shortcode_Base{
 
         $this->do_action('wpt_load');
 
-        if( $this->error_name ) return Msg::handle($this);
+        if( $this->error_name ) Msg::handle($this);
         if( ! $this->table_display ) return;
-        // var_dump($this->product_loop);
+
+        // if( !function_exists('dd') ){
+        //     function dd($val){
+        //         echo "<pre>";
+        //             var_dump($val->product_loop);
+        //         echo "</pre>";
+        //      }
+        // }
+        // echo "<pre>";
+        //     //var_dump($this->product_loop);
+        // echo "<pre>";
         //wpto_action_table_wrapper_top
         ob_start();
         
@@ -601,7 +618,8 @@ class Shortcode extends Shortcode_Base{
         $this->add_to_cart_text = $this->basics['add_to_cart_text'] ?? '';//$basics['add_to_cart_text'] ?? ''
         $this->pagination = $this->basics['pagination'] ?? 'on';
         $this->pagination_ajax = $this->basics['pagination_ajax'] ?? '';
-        $this->checkbox = $this->basics['checkbox'] ?? 'wpt_no_checked_table'; //$checkbox = isset( $basics['checkbox'] ) && !empty( $basics['checkbox'] ) ? $basics['checkbox'] : 'wpt_no_checked_table';
+        $this->checkbox = $this->basics['checkbox'] ?? 'wpt_no_checked_table'; 
+        //$checkbox = isset( $basics['checkbox'] ) && !empty( $basics['checkbox'] ) ? $basics['checkbox'] : 'wpt_no_checked_table';
 
         if($this->wpml_bool){
             $lang = '_'. $this->wpml_lang;
@@ -637,6 +655,7 @@ class Shortcode extends Shortcode_Base{
         $this->column_array = apply_filters( 'wpto_column_arr', $column_array, $this->table_id, $atts, $column_settings, $enabled_column_array );
         //we will removed this filter after few version. Not really, there are some old user available.
         $this->_enable_cols = apply_filters( 'wpto_enabled_column_array', $enabled_column_array, $this->table_id, $this->atts, $this->column_settings, $this->column_array );
+        // var_dump($this->_enable_cols);
         /**
          * @Hook Filter wpto_enabled_column_array to change or modify column amount, we can use it.
          */
