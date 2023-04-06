@@ -40,6 +40,10 @@ class Enable_Column extends Base{
          * @author Saiful Islam <codersaiful@gmail.com>
          * @since 3.2.5.5.final8
          */
+        echo "<pre>";
+            var_dump($shortcode->_enable_cols);
+        echo "</pre>";
+        //unset( $shortcode->_enable_cols['check'] );
         if( $shortcode->table_type == 'advance_table' ){
             self::$message_col = isset( $shortcode->_enable_cols['message'] ); //If available, value will be true
             
